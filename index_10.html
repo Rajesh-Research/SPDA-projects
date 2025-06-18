@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPDA Sports Analytics Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .woxsen-logo {
+            width: 150px;
+            height: auto;
+            max-height: 60px;
+            object-fit: contain;
+        }
+
+        .coe-logo {
+            width: 80px;
+            height: auto;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 20px;
+        }
+
+        .credits {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .credits h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .credits p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        /* Sports Categories Section */
+        .sports-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: #667eea;
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .sport-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sport-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .sport-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .sport-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .sport-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .sport-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .project-count {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .sport-card:hover .project-count {
+            color: #764ba2;
+            transform: scale(1.1);
+        }
+
+        .count-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .view-projects-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .sport-card:hover .view-projects-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .view-projects-btn:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Projects Display Section */
+        .projects-display {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 40px;
+            display: none;
+        }
+
+        .projects-display.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .projects-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .projects-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .close-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .projects-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .project-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .project-item:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateX(10px);
+            border-left-color: #764ba2;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tech-tag {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-link {
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .github-link {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .demo-link {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Statistics */
+        .stats-overview {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.8);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0,0,0,0.5);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .sports-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .projects-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .project-links {
+                flex-direction: column;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logos">
+                <div class="logo">
+                    <img src="woxsen-logo.png" 
+                         alt="Woxsen University" class="woxsen-logo">
+                </div>
+                <div class="logo">
+                    <img src="coe-sam.png" 
+                         alt="CoE Sports Analytics" class="coe-logo">
+                </div>
+            </div>
+            
+            <h1 class="main-title">Sports Data Analytics Store</h1>
+            <p class="subtitle">Advanced Sports Analytics & Performance Intelligence Solutions</p>
+            
+            <div class="credits">
+                <h3>🏆 Centre of Excellence - Sports Analytics & Management</h3>
+                <p><strong>Developed by:</strong> MBA Business Analytics 2023-2025 Batch</p>
+                <p><strong>Under Guidance of:</strong> Dr. Rajesh Kumar K V - Co-Chairperson CoE Sports Analytics and Management</p>
+                <p><strong>Institution:</strong> Woxsen University, India</p>
+            </div>
+        </header>
+
+        <!-- Sports Categories Section -->
+        <section class="sports-section">
+            <h2 class="section-title">Project Categories by Sports</h2>
+            
+            <div class="sports-grid" id="sportsGrid">
+                <!-- Sports cards will be dynamically generated -->
+            </div>
+
+            <!-- Overall Statistics -->
+            <div class="stats-overview">
+                <h3 style="color: #667eea; margin-bottom: 30px; font-size: 1.8rem;">Project Overview</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalProjects">0</div>
+                        <div class="stat-label">Total Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalSports">0</div>
+                        <div class="stat-label">Sports Covered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="mlProjects">0</div>
+                        <div class="stat-label">ML Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">25K+</div>
+                        <div class="stat-label">Data Points</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Display Section -->
+            <div class="projects-display" id="projectsDisplay">
+                <div class="projects-header">
+                    <h3 class="projects-title" id="projectsTitle">
+                        <span id="selectedSportIcon">🏏</span>
+                        <span id="selectedSportName">Cricket Projects</span>
+                    </h3>
+                    <button class="close-btn" onclick="closeProjectsDisplay()">✕ Close</button>
+                </div>
+                
+                <div class="loading" id="loadingProjects" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading projects...</p>
+                </div>
+                
+                <div class="projects-list" id="projectsList">
+                    <!-- Projects will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Woxsen University - Centre of Excellence Sports Analytics & Management</p>
+            <p>MBA Business Analytics 2023-2025 | Under guidance of Dr. Rajesh Kumar K V</p>
+            <p>GitHub: <a href="https://github.com/Rajesh-Research/SPDA-projects" target="_blank" style="color: #667eea;">Rajesh-Research/SPDA-projects</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Comprehensive Sports Projects Database with actual 58 projects
+        const sportsProjects = {
+            cricket: [
+                {
+                    title: "AI-Powered IPL Performing Insights",
+                    description: "Advanced AI-driven analytics platform for IPL player performance insights, predictions, and strategic analysis using machine learning algorithms.",
+                    technologies: ["Python", "Machine Learning", "Data Analytics", "AI", "IPL Data"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/AI-Powered IPL Performing Insights",
+                    demo: "#"
+                },
+                {
+                    title: "Analyzing Home Advantage in Cricket Matches",
+                    description: "Statistical analysis of home advantage effect in cricket matches across different formats and venues with predictive modeling.",
+                    technologies: ["Python", "Statistical Analysis", "Data Visualization", "Cricket Analytics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Analyzing Home Advantage in Cricket Matches",
+                    demo: "#"
+                },
+                {
+                    title: "Analyzing IPL Team Performance Analysis",
+                    description: "Comprehensive team performance analysis for IPL teams including player contributions, match strategies, and season trends.",
+                    technologies: ["Python", "Data Mining", "Performance Analytics", "IPL Analytics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Analyzing IPL Team Performance Analysis",
+                    demo: "#"
+                },
+                {
+                    title: "Cricket Match Outcome Prediction Through Data Analysis",
+                    description: "Predictive model for cricket match outcomes using historical data, player statistics, and match conditions analysis.",
+                    technologies: ["Python", "Predictive Analytics", "Machine Learning", "Data Science"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Cricket Match Outcome Prediction Through Data Analysis",
+                    demo: "#"
+                },
+                {
+                    title: "Cricket Match Outcome Predictor",
+                    description: "Real-time cricket match outcome prediction system with live score integration and probability calculations.",
+                    technologies: ["Python", "Real-time Analytics", "Probability Models", "API Integration"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Cricket Match Outcome Predictor",
+                    demo: "#"
+                },
+                {
+                    title: "Cricket Player Form & Worth Predictor",
+                    description: "Advanced system for predicting cricket player form and market worth based on performance metrics and market trends.",
+                    technologies: ["Python", "Market Analysis", "Performance Metrics", "Valuation Models"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Cricket Player Form & Worth Predictor",
+                    demo: "#"
+                },
+                {
+                    title: "Cricket Player Performance Analysis (IPL)",
+                    description: "Detailed analysis of individual player performances in IPL with trend analysis and performance optimization suggestions.",
+                    technologies: ["Python", "Player Analytics", "Performance Optimization", "Data Visualization"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Cricket Player Performance Analysis (IPL)",
+                    demo: "#"
+                },
+                {
+                    title: "Cricket Score Predictor - ML Web App",
+                    description: "Machine learning-based web application for real-time cricket score forecasting with interactive user interface.",
+                    technologies: ["Python", "Web Development", "Machine Learning", "Real-time Analytics", "Streamlit"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Cricket Score Predictor A Machine Learning-Based Web App for Real-Time Score Forecasting",
+                    demo: "#"
+                },
+                {
+                    title: "Data-Driven Sponsorship ROI Analysis in IPL Cricket",
+                    description: "Comprehensive analysis of sponsorship return on investment in IPL cricket using data-driven methodologies.",
+                    technologies: ["Python", "ROI Analysis", "Business Analytics", "Financial Modeling"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Data-Driven Sponsorship ROI Analysis in IPL Cricket",
+                    demo: "#"
+                },
+                {
+                    title: "Impact of Toss on Match Outcomes in Cricket",
+                    description: "Statistical study analyzing the impact of toss decisions on cricket match outcomes across different formats and conditions.",
+                    technologies: ["Python", "Statistical Analysis", "Cricket Analytics", "Decision Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Impact of Toss on Match Outcomes in Cricket",
+                    demo: "#"
+                },
+                {
+                    title: "IPL Auction Price Prediction",
+                    description: "Advanced model predicting IPL auction prices based on player performance, market trends, and social media sentiment analysis.",
+                    technologies: ["Python", "Sentiment Analysis", "Market Prediction", "Social Media Analytics", "Machine Learning"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/IPL Auction Price Prediction Based on Player Performance, Market Trends, and Social Media Sentiment",
+                    demo: "#"
+                },
+                {
+                    title: "IPL Cricket Score Prediction Using Machine Learning",
+                    description: "Machine learning model for predicting IPL cricket scores using historical data and real-time match conditions.",
+                    technologies: ["Python", "Machine Learning", "Scikit-learn", "Feature Engineering"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/IPL Cricket Score Prediction Using Machine Learning",
+                    demo: "#"
+                },
+                {
+                    title: "IPL Cricket Win Prediction Using Machine Learning",
+                    description: "Predictive model for IPL match win probability using advanced machine learning algorithms and ensemble methods.",
+                    technologies: ["Python", "Machine Learning", "Ensemble Methods", "Win Probability"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/IPL Cricket Win Prediction Using Machine Learning",
+                    demo: "#"
+                },
+                {
+                    title: "IPL Score Predictor",
+                    description: "Real-time IPL score prediction system with live match integration and statistical modeling.",
+                    technologies: ["Python", "Real-time Processing", "Statistical Modeling", "Live Data"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/IPL Score Predictor",
+                    demo: "#"
+                },
+                {
+                    title: "Exploratory Data Analysis on IPL",
+                    description: "Comprehensive exploratory data analysis on Indian Premier League data with insights and visualizations.",
+                    technologies: ["Python", "EDA", "Data Visualization", "Statistical Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Perform Exploratory Data Analysis on 'Indian Premiere League'",
+                    demo: "#"
+                },
+                {
+                    title: "Predicting Batsman Runs in ODI Cricket Matches",
+                    description: "Machine learning model for predicting individual batsman runs in ODI cricket matches using historical performance data.",
+                    technologies: ["Python", "Regression Analysis", "ODI Analytics", "Performance Prediction"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Predicting Batsman Runs in ODI Cricket Matches",
+                    demo: "#"
+                },
+                {
+                    title: "Predicting Player Performance Using ML in Cricket",
+                    description: "Advanced machine learning system for predicting cricket player performance across different match situations.",
+                    technologies: ["Python", "Machine Learning", "Performance Analytics", "Predictive Modeling"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Predicting Player Performance Using Machine Learning in Cricket",
+                    demo: "#"
+                },
+                {
+                    title: "Predictive Analytics in Cricket",
+                    description: "Comprehensive predictive analytics platform for cricket using historical match data and advanced statistical methods.",
+                    technologies: ["Python", "Predictive Analytics", "Time Series", "Historical Data Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Predictive Analytics in Cricket Insights from Historical Match Data",
+                    demo: "#"
+                },
+                {
+                    title: "Team Win Probability Model (For Cricket)",
+                    description: "Real-time team win probability calculation model for cricket matches with dynamic probability updates.",
+                    technologies: ["Python", "Probability Models", "Real-time Analytics", "Dynamic Modeling"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Team Win Probability Model (For Cricket)",
+                    demo: "#"
+                }
+            ],
+            football: [
+                {
+                    title: "Analyzing NFL Game and Player Data from 2018 Season",
+                    description: "Comprehensive analysis and visualization of NFL game and player statistics from the 2018 season with performance insights.",
+                    technologies: ["Python", "NFL Analytics", "Data Visualization", "Sports Statistics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Analyzing and Visualizing NFL Game and Player Data from the 2018 Season",
+                    demo: "#"
+                },
+                {
+                    title: "FIFA 21 Player Attributes Analysis",
+                    description: "Data-driven insights into FIFA 21 player attributes and performance trends with comprehensive statistical analysis.",
+                    technologies: ["Python", "FIFA Analytics", "Performance Analysis", "Gaming Statistics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Data-Driven Insights into FIFA 21 Player Attributes and Performance Trends",
+                    demo: "#"
+                },
+                {
+                    title: "Football Fan Sentiment Analysis",
+                    description: "Real-time sentiment analysis of football fans tracking emotions before and during live matches using social media data.",
+                    technologies: ["Python", "Sentiment Analysis", "NLP", "Social Media Analytics", "Real-time Processing"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Football Fan Sentiment Analysis Tracking Emotions Before and During Live Match",
+                    demo: "#"
+                },
+                {
+                    title: "Football Match Prediction App (Footy Insights)",
+                    description: "Comprehensive football match prediction application with team analysis, player statistics, and match outcome predictions.",
+                    technologies: ["Python", "Machine Learning", "Web Development", "Football Analytics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Football Match Prediction App (Footy Insights)",
+                    demo: "#"
+                },
+                {
+                    title: "Football Player Detection with Team Prediction",
+                    description: "Computer vision system for detecting football players with team prediction and tactical map generation.",
+                    technologies: ["Computer Vision", "Deep Learning", "OpenCV", "Team Recognition"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Football Player Detection with Team Prediction & Tactical Map",
+                    demo: "#"
+                },
+                {
+                    title: "Impact of Weather on Football Match Outcomes",
+                    description: "Statistical analysis of weather conditions impact on football match outcomes with predictive modeling.",
+                    technologies: ["Python", "Weather Analytics", "Statistical Analysis", "Environmental Impact"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Impact of Weather Conditions on Football Match Outcomes",
+                    demo: "#"
+                },
+                {
+                    title: "Momentum Shifts in Football",
+                    description: "Data-driven approach to analyzing game-changing moments and momentum shifts in football matches.",
+                    technologies: ["Python", "Game Analytics", "Momentum Analysis", "Statistical Modeling"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Momentum Shifts in Football A Data-Driven Approach to Game-Changing Moments",
+                    demo: "#"
+                },
+                {
+                    title: "Copa America 2024 Winner Prediction",
+                    description: "Machine learning model predicting the winner of Copa America 2024 using historical football data and team statistics.",
+                    technologies: ["Python", "Machine Learning", "Tournament Prediction", "Historical Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Predicting the Winner of Copa America 2024 Using Machine Learning and Historical Football Data",
+                    demo: "#"
+                },
+                {
+                    title: "Sleep Patterns and Athletic Performance in Soccer",
+                    description: "Analysis of sleep patterns impact on athletic performance in soccer players with health and performance correlations.",
+                    technologies: ["Python", "Health Analytics", "Performance Analysis", "Sleep Studies"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Sleep Patterns and Athletic Performance in Soccer Players",
+                    demo: "#"
+                },
+                {
+                    title: "Computer Vision for Football Player Detection",
+                    description: "Advanced computer vision system for detecting on-field players from football match clips with real-time processing.",
+                    technologies: ["Computer Vision", "Deep Learning", "Video Processing", "Real-time Detection"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Using Computer Vision to detect on field players from football match clips",
+                    demo: "#"
+                }
+            ],
+            basketball: [
+                {
+                    title: "NBA Player Performance Dynamics Analysis",
+                    description: "Analyzing NBA player performance dynamics in different game contexts with situational performance metrics.",
+                    technologies: ["Python", "NBA Analytics", "Performance Analysis", "Context Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Analyzing NBA Player Performance Dynamics in Different Game Contexts",
+                    demo: "#"
+                },
+                {
+                    title: "Automated Body Foul Detection in NBA Games",
+                    description: "Computer vision system for automated detection of body fouls in NBA games using advanced video analysis and machine learning.",
+                    technologies: ["Computer Vision", "Deep Learning", "Video Analysis", "NBA Analytics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Automated Body Foul Detection in NBA Games Using Computer Vision",
+                    demo: "#"
+                },
+                {
+                    title: "Basketball Player Performance Evaluation Using ML",
+                    description: "Machine learning-based evaluation system for basketball player performance with comprehensive metrics and analytics.",
+                    technologies: ["Python", "Machine Learning", "Performance Metrics", "Basketball Analytics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Basketball Player Performance Evalution Using Machine Learning",
+                    demo: "#"
+                },
+                {
+                    title: "NBA 2k20 Game Stats Analysis",
+                    description: "Statistical analysis of NBA 2k20 game statistics with player ratings, team performance, and gaming analytics.",
+                    technologies: ["Python", "Gaming Analytics", "Statistical Analysis", "Data Visualization"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/NBA 2k20 Game Stats Analysis",
+                    demo: "#"
+                },
+                {
+                    title: "NBA Player Performance Analysis (Basketball)",
+                    description: "Comprehensive NBA player performance analysis with advanced metrics, trend analysis, and performance predictions.",
+                    technologies: ["Python", "NBA Analytics", "Performance Analysis", "Statistical Modeling"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/NBA Player Performance Analysis (Basketball)",
+                    demo: "#"
+                },
+                {
+                    title: "NBA Player Performance Predictor",
+                    description: "Predictive model for NBA player performance using historical data and advanced machine learning algorithms.",
+                    technologies: ["Python", "Machine Learning", "Predictive Analytics", "NBA Data"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/NBA Player Performance Pridector",
+                    demo: "#"
+                },
+                {
+                    title: "NBA Shot Chart Web App",
+                    description: "Interactive web application for NBA shot chart visualization with player shooting patterns and analytics.",
+                    technologies: ["Python", "Web Development", "Data Visualization", "Interactive Charts"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/NBA Shot Chart Web App",
+                    demo: "#"
+                },
+                {
+                    title: "Player Fatigue & Performance Optimization in Basketball",
+                    description: "Analysis of player fatigue impact on basketball performance with optimization strategies for peak performance.",
+                    technologies: ["Python", "Performance Optimization", "Fatigue Analysis", "Sports Science"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Player Fatigue & Performance Optimization in Basketball",
+                    demo: "#"
+                }
+            ],
+            badminton: [
+                {
+                    title: "Badminton Player Performance Predictor",
+                    description: "Machine learning system for predicting badminton player performance with match outcome probabilities and player analytics.",
+                    technologies: ["Python", "Machine Learning", "Performance Prediction", "Badminton Analytics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Badminton Player Performance Predictor",
+                    demo: "#"
+                },
+                {
+                    title: "SmashRank - Badminton Player Ranking ML",
+                    description: "Advanced machine learning system for predicting badminton player ranks using performance metrics and match statistics.",
+                    technologies: ["Python", "Machine Learning", "Ranking Systems", "Performance Analytics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/SmashRank - Predicting Badminton Player Ranks Using Machine Learning",
+                    demo: "#"
+                },
+                {
+                    title: "Understanding Fan Behavior in Badminton",
+                    description: "Analysis of fan engagement patterns and business metrics in badminton with comprehensive behavioral analytics.",
+                    technologies: ["Python", "Fan Analytics", "Business Metrics", "Engagement Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Understanding Fan Behavior in Badminton Analyzing Engagement Patterns and Business Metrics",
+                    demo: "#"
+                }
+            ],
+            tennis: [
+                {
+                    title: "BetSmart - AI-Powered Tennis Betting Strategies",
+                    description: "AI-powered betting strategies for maximizing ROI in tennis with advanced analytics and prediction models.",
+                    technologies: ["Python", "AI", "Betting Analytics", "ROI Optimization"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/BetSmart AI-Powered Betting Strategies for Maximizing ROI in Tennis",
+                    demo: "#"
+                },
+                {
+                    title: "Understanding Fan Behavior in Tennis",
+                    description: "Analysis of fan engagement and business metrics in tennis with comprehensive behavioral and business analytics.",
+                    technologies: ["Python", "Fan Analytics", "Business Intelligence", "Engagement Metrics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Understanding Fan Behavior -Analyzing Fan Engagement and Business Metrics in Tennis",
+                    demo: "#"
+                },
+                {
+                    title: "Weather-Based Tennis Playability Prediction",
+                    description: "Data-driven approach for predicting tennis playability based on weather conditions with machine learning models.",
+                    technologies: ["Python", "Weather Analytics", "Predictive Modeling", "Environmental Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Weather-Based Prediction Model for Tennis Playability; A Data-Driven Approach",
+                    demo: "#"
+                }
+            ],
+            hockey: [
+                {
+                    title: "Hockey Team Performance Analysis",
+                    description: "Statistical analysis of hockey team performance using comprehensive statistical methods and performance metrics.",
+                    technologies: ["Python", "Statistical Analysis", "Team Analytics", "Performance Metrics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Hockey Team Performance Analysis Using Statistical Methods",
+                    demo: "#"
+                }
+            ],
+            others: [
+                {
+                    title: "Age vs Performance Analysis",
+                    description: "Analyzing the impact of player age on sports performance across different sports and performance metrics.",
+                    technologies: ["Python", "Age Analytics", "Performance Analysis", "Multi-Sport Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Age Vs Performance Analyzing the Impact of Player Age on Sports Performance",
+                    demo: "#"
+                },
+                {
+                    title: "Athlete Injury Risk Prediction",
+                    description: "Machine learning system for predicting athlete injury risk using biomechanical data and training analytics.",
+                    technologies: ["Python", "Machine Learning", "Injury Prevention", "Risk Analytics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Athlete Injury Risk Prediction",
+                    demo: "#"
+                },
+                {
+                    title: "Fantasy Sports ROI Calculator",
+                    description: "Advanced calculator for fantasy sports return on investment with portfolio optimization and strategy analysis.",
+                    technologies: ["Python", "Financial Analytics", "ROI Calculation", "Fantasy Sports"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Fantasy Sports ROI Calculator",
+                    demo: "#"
+                },
+                {
+                    title: "Formula 1 Lap Time Analysis",
+                    description: "Comprehensive analysis of Formula 1 lap times with performance optimization and race strategy insights.",
+                    technologies: ["Python", "F1 Analytics", "Lap Time Analysis", "Performance Optimization"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Formula 1 Lap Time Analysis",
+                    demo: "#"
+                },
+                {
+                    title: "Impact of Nutrition on Athlete Recovery Time",
+                    description: "Analysis of nutrition impact on recovery time for athletes with health and performance correlations.",
+                    technologies: ["Python", "Nutrition Analytics", "Recovery Analysis", "Health Metrics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Impact of Nutrition on Recovery Time for Athletes",
+                    demo: "#"
+                },
+                {
+                    title: "Lap Time Consistency in Speed Skating",
+                    description: "Analysis of lap time consistency impact on final ranking in speed skating with performance optimization.",
+                    technologies: ["Python", "Speed Skating Analytics", "Consistency Analysis", "Performance Metrics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Lap Time Consistency in Speed Skating Analyzing the Impact on Final Ranking",
+                    demo: "#"
+                },
+                {
+                    title: "Olympics Data Analysis using Machine Learning",
+                    description: "Comprehensive machine learning analysis of Olympic data with performance predictions and historical trends.",
+                    technologies: ["Python", "Machine Learning", "Olympic Analytics", "Historical Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Olympics Data Analysis using Machine Learning",
+                    demo: "#"
+                },
+                {
+                    title: "Olympic Volleyball Performance Analysis",
+                    description: "Statistical analysis of Olympic volleyball performance with team and player performance metrics.",
+                    technologies: ["Python", "Volleyball Analytics", "Olympic Data", "Performance Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Olympic Volleyball Performance Analysis",
+                    demo: "#"
+                },
+                {
+                    title: "Performance Optimisation AI Engineering",
+                    description: "AI engineering solutions for sports performance optimization with advanced algorithms and analytics.",
+                    technologies: ["Python", "AI Engineering", "Performance Optimization", "Advanced Analytics"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Performance Optimisation AI engineering",
+                    demo: "#"
+                },
+                {
+                    title: "Player & Team Ranking",
+                    description: "Comprehensive ranking system for players and teams across multiple sports with advanced rating algorithms.",
+                    technologies: ["Python", "Ranking Algorithms", "Multi-Sport Analytics", "Rating Systems"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Player & Team Ranking",
+                    demo: "#"
+                },
+                {
+                    title: "Player Performance and Salary Optimisation",
+                    description: "Optimization analysis of player performance and salary relationships with value assessment models.",
+                    technologies: ["Python", "Salary Analytics", "Performance Optimization", "Value Assessment"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Player Performance and Salary Optimisation",
+                    demo: "#"
+                },
+                {
+                    title: "Player Similarity Analysis",
+                    description: "Analysis system for identifying which professional athlete you resemble based on playing style and performance metrics.",
+                    technologies: ["Python", "Similarity Analysis", "Player Matching", "Style Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Player Similarity Analysis Identifying Which Professional Athlete You Resemble",
+                    demo: "#"
+                },
+                {
+                    title: "Pro Kabaddi League Auction Analytics",
+                    description: "Comprehensive analytics for Pro Kabaddi League auction with player valuation and strategy analysis.",
+                    technologies: ["Python", "Auction Analytics", "Kabaddi Analytics", "Player Valuation"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Pro Kabaddi League Auction Analytics",
+                    demo: "#"
+                },
+                {
+                    title: "Smart F1 Car Detection and Tracking",
+                    description: "Smart vision system for high-speed F1 car detection and tracking using advanced computer vision techniques.",
+                    technologies: ["Computer Vision", "Object Detection", "F1 Analytics", "Real-time Tracking"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Smart Vision System for High-Speed F1 Car Detection and Tracking",
+                    demo: "#"
+                },
+                {
+                    title: "UFC Winner Predictor",
+                    description: "Machine learning model for predicting UFC fight winners using fighter statistics and historical performance data.",
+                    technologies: ["Python", "Machine Learning", "UFC Analytics", "Fight Prediction"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/UFC Winner Predictor",
+                    demo: "#"
+                },
+                {
+                    title: "Volleyball Team Strategy Analyzer",
+                    description: "Advanced volleyball team strategy analysis with tactical pattern recognition and game optimization.",
+                    technologies: ["Python", "Strategy Analysis", "Volleyball Analytics", "Tactical Analysis"],
+                    github: "https://github.com/Rajesh-Research/SPDA-projects/tree/main/Volleyball Team Strategy Analyzer",
+                    demo: "#"
+                }
+            ]
+        };
+
+        // Sports metadata
+        const sportsMetadata = {
+            cricket: { name: "Cricket", icon: "🏏", color: "#ff6b6b" },
+            basketball: { name: "Basketball", icon: "🏀", color: "#4ecdc4" },
+            football: { name: "Football", icon: "⚽", color: "#45b7d1" },
+            badminton: { name: "Badminton", icon: "🏸", color: "#f9ca24" },
+            tennis: { name: "Tennis", icon: "🎾", color: "#6c5ce7" },
+            hockey: { name: "Hockey", icon: "🏒", color: "#fd79a8" },
+            others: { name: "Other Sports", icon: "🎯", color: "#a29bfe" }
+        };
+
+        // Generate sports grid
+        function generateSportsGrid() {
+            const sportsGrid = document.getElementById('sportsGrid');
+            const gridHTML = Object.keys(sportsProjects).map(sport => {
+                const projectCount = sportsProjects[sport].length;
+                const metadata = sportsMetadata[sport];
+                
+                return `
+                    <div class="sport-card" onclick="showProjects('${sport}')">
+                        <span class="sport-icon">${metadata.icon}</span>
+                        <h3 class="sport-name">${metadata.name}</h3>
+                        <div class="project-count">${projectCount}</div>
+                        <div class="count-label">Projects Available</div>
+                        <button class="view-projects-btn">View Projects</button>
+                    </div>
+                `;
+            }).join('');
+            
+            sportsGrid.innerHTML = gridHTML;
+        }
+
+        // Show projects for selected sport
+        function showProjects(sport) {
+            const projectsDisplay = document.getElementById('projectsDisplay');
+            const loadingProjects = document.getElementById('loadingProjects');
+            const projectsList = document.getElementById('projectsList');
+            const selectedSportIcon = document.getElementById('selectedSportIcon');
+            const selectedSportName = document.getElementById('selectedSportName');
+            
+            const metadata = sportsMetadata[sport];
+            const projects = sportsProjects[sport];
+            
+            // Update header
+            selectedSportIcon.textContent = metadata.icon;
+            selectedSportName.textContent = `${metadata.name} Projects (${projects.length})`;
+            
+            // Show display section
+            projectsDisplay.classList.add('active');
+            
+            // Show loading
+            loadingProjects.style.display = 'block';
+            projectsList.innerHTML = '';
+            
+            // Simulate loading and render projects
+            setTimeout(() => {
+                loadingProjects.style.display = 'none';
+                
+                const projectsHTML = projects.map((project, index) => `
+                    <div class="project-item" style="animation-delay: ${index * 0.1}s">
+                        <h4 class="project-title">${project.title}</h4>
+                        <p class="project-description">${project.description}</p>
+                        <div class="project-tech">
+                            ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                        </div>
+                        <div class="project-links">
+                            <a href="${project.github}" class="project-link github-link" target="_blank">📁 GitHub</a>
+                            <a href="${project.demo}" class="project-link demo-link" target="_blank">🚀 Demo</a>
+                        </div>
+                    </div>
+                `).join('');
+                
+                projectsList.innerHTML = projectsHTML;
+                
+                // Scroll to projects display
+                projectsDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 1000);
+        }
+
+        // Close projects display
+        function closeProjectsDisplay() {
+            const projectsDisplay = document.getElementById('projectsDisplay');
+            projectsDisplay.classList.remove('active');
+        }
+
+        // Update statistics
+        function updateStatistics() {
+            const totalProjects = Object.values(sportsProjects).reduce((sum, projects) => sum + projects.length, 0);
+            const totalSports = Object.keys(sportsProjects).length;
+            const mlProjects = Object.values(sportsProjects).flat().filter(project => 
+                project.technologies.some(tech => 
+                    tech.toLowerCase().includes('machine learning') || 
+                    tech.toLowerCase().includes('tensorflow') || 
+                    tech.toLowerCase().includes('neural') ||
+                    tech.toLowerCase().includes('deep learning') ||
+                    tech.toLowerCase().includes('scikit') ||
+                    tech.toLowerCase().includes('ai') ||
+                    tech.toLowerCase().includes('ml')
+                )
+            ).length;
+            
+            // Animate counters
+            animateCounter('totalProjects', totalProjects);
+            animateCounter('totalSports', totalSports);
+            animateCounter('mlProjects', mlProjects);
+        }
+
+        // Animate counter
+        function animateCounter(elementId, target) {
+            const element = document.getElementById(elementId);
+            let current = 0;
+            const increment = target / 30;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current);
+            }, 50);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            generateSportsGrid();
+            setTimeout(updateStatistics, 500);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProjectsDisplay();
+            }
+        });
+    </script>
+</body>
+</html>
