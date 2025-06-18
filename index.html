@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPDA Sports Projects Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-bar {
+            position: relative;
+            max-width: 500px;
+            margin: 40px auto 0;
+            z-index: 1;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 60px 18px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px 0 80px;
+        }
+
+        .project-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .project-header {
+            padding: 25px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .project-category {
+            display: inline-block;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-description {
+            padding: 0 25px 25px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            padding: 0 25px;
+            margin-bottom: 25px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            padding: 6px 12px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-actions {
+            padding: 0 25px 25px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 50px auto;
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            color: rgba(255,255,255,0.8);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .filters {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>SPDA Sports Projects</h1>
+            <p>Discover cutting-edge sports data analytics and performance tracking solutions</p>
+            
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search projects..." id="searchInput">
+                <span class="search-icon">🔍</span>
+            </div>
+        </header>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="analytics">Analytics</button>
+            <button class="filter-btn" data-filter="tracking">Performance Tracking</button>
+            <button class="filter-btn" data-filter="prediction">Prediction Models</button>
+            <button class="filter-btn" data-filter="visualization">Data Visualization</button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <h3 id="projectCount">12</h3>
+                <p>Active Projects</p>
+            </div>
+            <div class="stat-item">
+                <h3>8</h3>
+                <p>Sports Covered</p>
+            </div>
+            <div class="stat-item">
+                <h3>5</h3>
+                <p>ML Models</p>
+            </div>
+            <div class="stat-item">
+                <h3>15K+</h3>
+                <p>Data Points</p>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading projects...</p>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Projects will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample project data - replace with your actual projects
+        const projects = [
+            {
+                title: "Basketball Performance Analytics",
+                category: "analytics",
+                description: "Advanced analytics platform for tracking basketball player performance metrics including shooting accuracy, movement patterns, and game statistics.",
+                technologies: ["Python", "Machine Learning", "OpenCV", "TensorFlow"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Soccer Prediction Model",
+                category: "prediction",
+                description: "Machine learning model that predicts soccer match outcomes using historical data, player statistics, and team performance metrics.",
+                technologies: ["Python", "Scikit-learn", "Pandas", "API Integration"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Tennis Serve Analysis",
+                category: "tracking",
+                description: "Computer vision system for analyzing tennis serves, tracking ball trajectory, speed, and player biomechanics for performance improvement.",
+                technologies: ["OpenCV", "Python", "Deep Learning", "Video Processing"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Cricket Stats Dashboard",
+                category: "visualization",
+                description: "Interactive dashboard for cricket statistics visualization with real-time data updates and comprehensive performance analytics.",
+                technologies: ["React", "D3.js", "Node.js", "MongoDB"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Football Injury Prediction",
+                category: "prediction",
+                description: "Predictive model for football player injury risk assessment using biomechanical data and training load analysis.",
+                technologies: ["Python", "Random Forest", "Neural Networks", "Data Mining"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Olympic Performance Tracker",
+                category: "tracking",
+                description: "Comprehensive tracking system for Olympic athletes' training progress and performance metrics across multiple sports disciplines.",
+                technologies: ["Python", "PostgreSQL", "Dash", "Plotly"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Baseball Pitch Classification",
+                category: "analytics",
+                description: "AI-powered system for classifying different types of baseball pitches using computer vision and machine learning algorithms.",
+                technologies: ["TensorFlow", "Keras", "OpenCV", "Python"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Swimming Stroke Analyzer",
+                category: "tracking",
+                description: "Underwater motion tracking system for analyzing swimming strokes and providing technique improvement recommendations.",
+                technologies: ["Computer Vision", "Python", "Signal Processing", "3D Analysis"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Sports Betting Odds Predictor",
+                category: "prediction",
+                description: "Statistical model for predicting sports betting odds across multiple sports using advanced machine learning techniques.",
+                technologies: ["Ensemble Methods", "Python", "Web Scraping", "Time Series"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Marathon Training Optimizer",
+                category: "analytics",
+                description: "Personalized training plan generator for marathon runners using performance data and physiological metrics.",
+                technologies: ["Python", "Genetic Algorithms", "Data Analysis", "Mobile App"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Esports Performance Dashboard",
+                category: "visualization",
+                description: "Real-time performance dashboard for esports teams with match analytics, player statistics, and strategy visualization.",
+                technologies: ["Vue.js", "WebSocket", "Chart.js", "Node.js"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            },
+            {
+                title: "Golf Swing Biomechanics",
+                category: "tracking",
+                description: "3D motion capture analysis system for golf swing biomechanics with personalized coaching recommendations.",
+                technologies: ["Motion Capture", "MATLAB", "3D Modeling", "Biomechanics"],
+                githubUrl: "https://github.com/Rajesh-Research/SPDA-projects",
+                demoUrl: "#"
+            }
+        ];
+
+        let filteredProjects = [...projects];
+
+        function createProjectCard(project) {
+            return `
+                <div class="project-card" data-category="${project.category}">
+                    <div class="project-header">
+                        <h3 class="project-title">${project.title}</h3>
+                        <span class="project-category">${project.category}</span>
+                    </div>
+                    <div class="project-description">
+                        <p>${project.description}</p>
+                    </div>
+                    <div class="project-tech">
+                        <div class="tech-stack">
+                            ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <a href="${project.githubUrl}" class="action-btn btn-primary" target="_blank">View Code</a>
+                        <a href="${project.demoUrl}" class="action-btn btn-secondary">Live Demo</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProjects(projectsToRender = filteredProjects) {
+            const grid = document.getElementById('projectsGrid');
+            const loading = document.getElementById('loading');
+            
+            // Show loading
+            loading.style.display = 'block';
+            grid.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                grid.innerHTML = projectsToRender.map(createProjectCard).join('');
+                document.getElementById('projectCount').textContent = projectsToRender.length;
+                
+                // Hide loading
+                loading.style.display = 'none';
+                grid.style.opacity = '1';
+                
+                // Add stagger animation
+                const cards = document.querySelectorAll('.project-card');
+                cards.forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    setTimeout(() => {
+                        card.style.transition = 'all 0.6s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 500);
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter projects
+                const filter = btn.dataset.filter;
+                if (filter === 'all') {
+                    filteredProjects = [...projects];
+                } else {
+                    filteredProjects = projects.filter(project => project.category === filter);
+                }
+                
+                renderProjects(filteredProjects);
+            });
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const searchResults = filteredProjects.filter(project => 
+                project.title.toLowerCase().includes(searchTerm) ||
+                project.description.toLowerCase().includes(searchTerm) ||
+                project.technologies.some(tech => tech.toLowerCase().includes(searchTerm))
+            );
+            renderProjects(searchResults);
+        });
+
+        // Initial render
+        renderProjects();
+    </script>
+</body>
+</html>
